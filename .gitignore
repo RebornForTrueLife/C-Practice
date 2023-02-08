@@ -3,3 +3,9 @@
 # ignore 2 folders
 FunCode
 Sprinkle
+
+# ignore object file
+*.out
+**/*.out
+*.o
+**/*.o
