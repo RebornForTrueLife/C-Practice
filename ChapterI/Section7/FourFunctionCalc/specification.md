@@ -3,7 +3,7 @@
 
 **A four-fucntion calculator**
 
-*Preliminary Specification*
+*Specification*
 
 Warning: This is a preliminary specification. Any resemblance to any software living or dead is purely coincidental
 
@@ -33,3 +33,4 @@ exit
 
 Warning raise when:
 - user try to divide by 0
+- or meet unknown operator
