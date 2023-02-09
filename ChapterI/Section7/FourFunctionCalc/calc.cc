@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
 	int number;		// the second operands of the calculation
 	// This buffer is to read the rest of an invalid input
 	// so that input doesn't affect other loops
-	std::string inputBuffer; 	 
+	std::string inputBuffer; 	
 
 	// Initially display result = 0
 	result = 0;
@@ -76,6 +76,8 @@ int main(int argc, char const *argv[]) {
 		else if ( (op_char != '+') && (op_char != '-') 
 					&& (op_char!= '*') && (op_char != '/')) {
 			raiseError("Unknown operator");
+			std::cout << "Type any charater to continue: ";
+			// Read all the chars left of curent invalid input
 			std::cin >> inputBuffer;
 			continue;
 		} 	// end if
