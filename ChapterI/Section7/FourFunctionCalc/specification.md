@@ -1,6 +1,7 @@
-**Calc**
 
-***A four-fucntion calculator***
+# Calc
+
+**A four-fucntion calculator**
 
 *Preliminary Specification*
 
@@ -25,7 +26,7 @@ Calc
 RESULT:		0
 Enter an operator and number:	+ 100
 RESULT:		100
-Enter an operator and number:	/ 25
+Enter an operator and number:	/ 23
 RESULT: 	4
 Enter an operator and number: q
 exit
