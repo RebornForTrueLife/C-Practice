@@ -53,11 +53,9 @@ int main(int argc, char const *argv[]) {
 	int result;		// the result of the calculation
 	char op_char;	// operator character
 	int number;		// the second operands of the calculation
-	// This switch is to determine when to raise unknown operation error
-	// due to the data user enter, it stays in the input buffer
-	// so it causes program raise more unnecessary warning
-	// set as false mean previous operator is valid, warning is not turned on
-	bool unknownOpErrorSwitch = false; 		
+	// This buffer is to read the rest of an invalid input
+	// so that input doesn't affect other loops
+	std::string inputBuffer; 	 
 
 	// Initially display result = 0
 	result = 0;
@@ -77,18 +75,13 @@ int main(int argc, char const *argv[]) {
 		  // and goto next loop
 		else if ( (op_char != '+') && (op_char != '-') 
 					&& (op_char!= '*') && (op_char != '/')) {
-
-			if (unknownOpErrorSwitch == false) {
-				raiseError("Unknown operator");
-				unknownOpErrorSwitch = true;	// turn on error switch
-			}
-			continue;	// go to next loop
-		} // if operator is valid, turn off error switch
-		else
-			unknownOpErrorSwitch = false;
+			raiseError("Unknown operator");
+			std::cin >> inputBuffer;
+			continue;
+		} 	// end if
 		std::cin >> number;		// enter number
 
-		// Do the calculation
+		// Do the calculation & display
 		result = calculate(result, op_char, number);
 
 		// Display the result
