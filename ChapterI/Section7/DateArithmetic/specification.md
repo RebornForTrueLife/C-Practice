@@ -1,5 +1,5 @@
 
-# date arithmetic
+# Date arithmetic
 
 ***Simple date arithmetic operations***
 
