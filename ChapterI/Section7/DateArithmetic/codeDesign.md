@@ -36,7 +36,7 @@
 
 ## Funtions flow:
 
-*#1 Do just 2 operation first: validation and comparison*
+*#1 Do just 2 operation first: validation and instructor*
 
 1. **Validate**
 	> `Take` an short integer array dimension 3 [day, month, year]
