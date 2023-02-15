@@ -51,7 +51,7 @@ List of operations can be performed:
 	> $ All operations are listed below:
 	> $ 	[1] Count number of days between 2 dates
 	> $ 	[2] Print the date after [number] days of a given date
-	> $		[3] Print the date before [number] days of a given date
+	> $	[3] Print the date before [number] days of a given date
 	> $ Please enter your choice: 1
 	> $ Program will count number of days between 2 dates
 	> $ A valid date format is: [20 10 2023]. Please enter:

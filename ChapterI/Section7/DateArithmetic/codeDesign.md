@@ -37,6 +37,7 @@
 ## Funtions flow:
 
 *#1 Do just 2 operation first: validation and instructor*
+*#2 Code [comparison fucntion], [distance measure func]*
 
 1. **Validate**
 	> `Take` an short integer array dimension 3 [day, month, year]
@@ -51,9 +52,9 @@
 	> `Validate` each date
 		> `If` there is any date that is not valid, `Raise` warning and `Exit`program
 	> `Compare` the years of 2 dates:
-		> `If` they are equal, `Return` the comparison result
+		> `If` they are not equal, `Return` the comparison result
 	> `Compare` the months of 2 dates:
-		> `If` they are equal, `Return` the comparison result
+		> `If` they are not equal, `Return` the comparison result
 	> `Compare` the day of 2 dates, `Return` the comparison result
 	- To represent result: using an short integer:
 		> 1: if [A] is greater
@@ -73,3 +74,21 @@
 	> `Ask` user to enter needed data
 	> `Operate` on the input data
 	> `Print` out the result
+
+5. **MeasureDistance**
+	> `Take` 2 dates: date [A] and date [B]
+	> `Declare` an int: 'totalDay' to contain the number of days between 2 dates
+	> `Check` if date[A] is smaller than [B] by [compare func]
+		> If [A] not smaller than [B]: `Raise` warning and `Exit` program
+	> For each middle yearI in range ([yearA] and [yearB]) inclusively:
+		> `Add` number_day_of_ yearI  to 'totalDay'
+		*Note: leap year has 366 days, only count 1 time if [yearA] == [yearB]*
+	> `Calculate` number_of_days from the start_day yearA to date [A]  exclusively and `Assign` to an short in 'redundantA'
+	> `Calculate` number_of_days from date [B] to the day_end of year [B] exclusively and `Assign` to an short in 'redundantB'
+	> `Subtract` 'totalDay' with 'redundantA' and 'redundantB'
+	> `Return` totalDay
+
+## Continue: 
+- measure distance operation
+	> coded: measureDistance func
+	> next code: measureDistance procedure
