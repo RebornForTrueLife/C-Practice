@@ -24,17 +24,30 @@
 		5. MeasureDistance: 'Input' 2 dates, `Return` a number of days between 2 days, the smaller date need to be entered first.
 
 
-## Main flow:
+## Operations
 
-> `Inform` user about list of date's operations
-> `Ask` user enter operation choice: an interger
-> `Instruct` user with user's specific choice respectively
-> `Operate` user's operation with input data from user
-> `Print` out the result
-> `Exit` program
+### Operation declare
+***Core blocks***
+1. `Main`: where to implement interface to user
+2. `Instructor`: to give instructions for user with a givenspecific user's choice and call the corresponding operation procedure
+3. `OperationProcedure`: an abstract Procedure - which mean each Operation for Date data will have one Procedure respectively. This procedure is used to implement each operation: ASK user for date, CALCULATE result, PRINT the result
+4. `measureDistance`: to perform counting number of days between t2 dates
+5. `add`: to perform `add` a number of days to a date and `return` the result date
+5. `subtract`: to `subtract` a number of days to a date and `return` the result date
 
+***Suport block***
+1. `Validate`: to validate a given* date, if the date is invalid, `raise` error and `exit` program
+2. `Compare`: to perform comparision between 2 dates(detail in date desciprtion)
+3. `dayStamp`: to `convert` the given date into a number of days from base_date(1/1/0) to the given date. *Note: day stamp of  base_date is 1, 0 day_stamp is 1/1/0*
 
-## Funtions flow:
+### Operation Flow
+0. Main
+	> `Inform` user about list of date's operations
+	> `Ask` user enter operation choice: an interger
+	> `Instruct` user with user's specific choice respectively
+	> `Operate` user's operation with input data from user
+	> `Print` out the result
+	> `Exit` program
 
 *#1 Do just 2 operation first: validation and instructor*
 *#2 Code [comparison fucntion], [distance measure func]*
@@ -78,17 +91,37 @@
 5. **MeasureDistance**
 	> `Take` 2 dates: date [A] and date [B]
 	> `Declare` an int: 'totalDay' to contain the number of days between 2 dates
-	> `Check` if date[A] is smaller than [B] by [compare func]
-		> If [A] not smaller than [B]: `Raise` warning and `Exit` program
-	> For each middle yearI in range ([yearA] and [yearB]) inclusively:
-		> `Add` number_day_of_ yearI  to 'totalDay'
-		*Note: leap year has 366 days, only count 1 time if [yearA] == [yearB]*
-	> `Calculate` number_of_days from the start_day yearA to date [A]  exclusively and `Assign` to an short in 'redundantA'
-	> `Calculate` number_of_days from date [B] to the day_end of year [B] exclusively and `Assign` to an short in 'redundantB'
-	> `Subtract` 'totalDay' with 'redundantA' and 'redundantB'
+	> `Check` if date[A] is greater than [B] by [compare func]
+		> If [A] greater than [B]: `Raise` warning and `Exit` program
+	> `Calculate` dayStamp of date A 
+	> `Calculate` dayStamp of date B
+	> [totalDay] = [dayStampB] - [dayStampA] + 1
 	> `Return` totalDay
 
+6. **Addition operation**
+	> `Take` a date [A] and a non-negative number [d]
+	> ...
+
+### Support functions
+*Note: for dates that are before base_date, which are described: the day before base_date is 31/12/-1, which has day_stamp: -1. Then the corresponding date with absolute year of a date [day/month/negative_year] is [day/month/abs_year]. So day_stamp of the given date is calculated by: calculate the day_stamp of corresponding year(assign value to [dayStamp]), minus ([number of days of abs_year] -1 + [number of days of year 0 == 366]) to [dayStamp], and change sign of [dayStamp]* 
+
+1. **DayStamp**
+	> `Take` a date [A]
+	> `Check` if [A] is valid
+	> `Check` if year of [A] is negative
+		> if true, var [sign] = -1, change year_[A]  to [its absolute value] -1
+		> else, var [sign] = 1
+	> `Count` number of days from base_date to the end_date of the year before year_[A], `Assign` result to [totalDay]
+	> `Count` the day from the begin of year_[A] to the date A INCLUSIVELY and `Assign` result to [dayCurrentYear]
+	> `If` date is before base_date: 
+		> `subtract` [number days of year 0] from total year
+		> [dayCurrentYear]  = [number of day in current year] - [dayCurrentYear]
+	> [totalDay] += [dayCurrentYear]
+	> `change sign` of [totalDay]
+	> `Return` [totalDay]
+
+
 ## Continue: 
-- measure distance operation
-	> coded: measureDistance func
-	> next code: measureDistance procedure
+- coded DayStamp
+- Next code: measure Distance
+	
