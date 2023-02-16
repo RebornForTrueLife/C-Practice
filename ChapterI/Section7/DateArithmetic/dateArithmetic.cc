@@ -152,7 +152,7 @@ void instructor(int choice){
 
 // Funtion to measure the number of days between 2 given dates
 int measureDistance(int * dateA, int * dateB) {
-	int totalDay = 0;         	// total day between dateA and dateB
+	int totalDay = 0;        // total day between dateA and dateB
 	int dayStampA; 			//  day stamp of the first date
 	int dayStampB; 			//  day stamp of the second date
 	// check: dateA must happen before or same as dateB
@@ -260,10 +260,10 @@ int dayStamp(int * date) {
 	// explicitly use date data
 	int day = date[0];            	// date's day
 	int month = date[1];       	// date's month
-	int year = date[2];			// date's year
-	int sign;							// to show if year is before or after base_date
+	int year = date[2];				// date's year
+	int sign;								// to show if year is before or after base_date
 	int totalDay = 0; 				// number of days = day stamp
-	int dayCurrentYear = 0;	// number of days happened in date's year
+	int dayCurrentYear = 0;		// number of days happened in date's year
 	// copy the MONTH_ARRAY, cuz the value of array can be changed
 	int monthArray[12];
 	std::copy(std::begin(MONTH_ARRAY), std::end(MONTH_ARRAY), std::begin(monthArray));
@@ -347,14 +347,6 @@ int * toDate(int daystamp) {
 		year += 1;			// cuz negative year start by -1;
 		year *= sign;		// change sign of year
 	}	// close if
-	// // if daystamp equal to dayStamp(beginDateYear), return the date if sign == 1
-	// int beginDateYear[] = {1, 1, year};
-	// if (daystamp == dayStamp(beginDateYear))
-	// 	if (sign == 1)	 {						// date is after or equal base_date
-	// 		std::copy(std::begin(beginDateYear), std::end(beginDateYear), std::begin(dateReturn));
-	// 		return dateReturn;		
-	// 	}	// close if
-	
 	// FIND MONTH
 	// calculate number of day between date and the begin of the same year
 	int leftDay;			// the number of days 
