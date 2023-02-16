@@ -66,7 +66,7 @@ List of operations can be performed:
 	```
 
 **Operation2**
-	```
+```
 	> ...
 	> Please enter your choice: 2
 	> Program will print the date after [number] days after given date
@@ -76,10 +76,10 @@ List of operations can be performed:
 	> Enter number: 10
 	> The date needs to be found is: 22/2/2023
 	> Exit
-	```
+```
 
 **Operation3**
-	```
+```
 	> ...
 	> Please enter your choice: 2
 	> Program will print the date before a [number] of days  of the given date
@@ -91,14 +91,14 @@ List of operations can be performed:
 	> Enter number: 10
 	> The date needs to be found is: 22/2/2023
 	> Exit
-	```
+```
 
 2. Warning example:
-	```
+```
 	> $ ...
 	> $ Please enter your choice: 2
 	> $ Program will Print-out the-date after a-number-of-day from a-given-day
 	> $ A valid date format is: [20 10 2023]. Please enter:
 	> $ Start-date: 40 1 2020
 	> $ WARNING: The date is not valid, program will shut-down, have a nice day!
-	```
+```
