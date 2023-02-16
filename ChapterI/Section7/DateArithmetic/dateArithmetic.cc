@@ -414,23 +414,17 @@ std::string toString(int * date) {
 
 
 int main(int argc, char const *argv[]) {
-	// Declare
 	int choice;       // operation choice
-
 	// Print out the list of operations
 	std::cout << "This program can perform some operations on date that are listed below\n";
 	std::cout << "[1] Count number of days between 2 dates\n";
 	std::cout << "[2] Print the date after [number] days of a given date\n";
 	std::cout << "[3] Print the date before [number] days of a given date\n";
-
 	// Ask user to enter operation choice
 	std::cout << "Enter [ID] of chosen operation: ";
 	std::cin >> choice;
-
 	// Give instruction to user about user's chosen operation
 	// and also call the operationProcedure to operate
 	instructor(choice);
-
 	return 0;
-	// > `Take` 2 dates: date [A] and date [B]
 }	// end  main 

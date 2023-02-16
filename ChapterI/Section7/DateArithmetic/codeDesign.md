@@ -15,13 +15,15 @@
 	> Subtraction: subtract a date [A] wiht a non-negative integer [d], return date [B] that happens [d] days **before** date [A]
 	> Distance: Measure the distance between 2 dates [A] & [B], return the number of days between 2 day(including 2 dates), [B] need to greater than [A]
 - **Represent date data**
-	> An short-int array dimension 3: [day, month, year]
+	> An int array dimension 3: [day, month, year]
 	> There are functions associated with date data:
 		1. Validate: `Check` if a particular date is valid
 		2. Compare: Input 2 date [A], [B] in order, return whether [A] greater or smaller than or equal to [B].
 		3. Addition: `Input` a date, a non-negative integer, `Return` a date
 		4. Substraction: `Input ` a date, a non-negative integer, `Return` a date
 		5. MeasureDistance: 'Input' 2 dates, `Return` a number of days between 2 days, the smaller date need to be entered first.
+		6. toDayStamp: convert a [date] into an integer which represent [date] in the time line, base_date is 1/1/0, which has day stamp is 0.
+		7. toDate: convert a day stamp(an integer) into a [date]
 
 
 ## Operations
@@ -32,10 +34,9 @@
 2. `Instructor`: to give instructions for user with a givenspecific user's choice and call the corresponding operation procedure
 3. `OperationProcedure`: an abstract Procedure - which mean each Operation for Date data will have one Procedure respectively. This procedure is used to implement each operation: ASK user for date, CALCULATE result, PRINT the result
 4. `measureDistance`: to perform counting number of days between t2 dates
-5. `add`: to perform `add` a number of days to a date and `return` the result date
-5. `subtract`: to `subtract` a number of days to a date and `return` the result date
+5. `addSub`: to perform `add` a number of days to a date and `return` the result date(if number of days is a negative number, same meaning as subtraction)
 
-***Suport block***
+***Support block***
 1. `checkLeapYear`: to check if the given year is a leap year, `return` true if it is a leap year and vice versa.
 2. `Validate`: to validate a given* date, if the date is invalid, `raise` error and `exit` program
 3. `Compare`: to perform comparision between 2 dates(detail in date desciprtion)
@@ -51,8 +52,6 @@
 	> `Print` out the result
 	> `Exit` program
 
-*#1 Do just 2 operation first: validation and instructor*
-*#2 Code [comparison fucntion], [distance measure func]*
 
 1. **Validate**
 	> `Take` an integer array dimension 3 [day, month, year]
@@ -78,7 +77,7 @@
 
 3. **Instructor**
 *This func will take the user choice, and for each choice, it will PRINT respective instruction and  CALL respective PROCEDURE for user's chosen operation*
-	> `Take` an short-integer [choice]
+	> `Take` an integer [choice]
 	> With each valid choice:
 		> `Print` corresponding instruction
 		> `Call` corresponding procedure for chosen operation
@@ -149,8 +148,3 @@
 		> `Decrease` [month] by 1
 	<!-- return result -->	
 	> return [day] [month] [year]
-
-
-## Continue: 
-- coding toDate function
-	> start to code daySigmaMonth func	
