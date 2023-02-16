@@ -64,6 +64,7 @@ List of operations can be performed:
 	> $ From 6/1/2020 To 8/3/2020, there are: 62 days
 	> $ Exit...
 	```
+
 **Operation2**
 	```
 	> ...
@@ -76,6 +77,7 @@ List of operations can be performed:
 	> The date needs to be found is: 22/2/2023
 	> Exit
 	```
+
 **Operation3**
 	```
 	> ...
@@ -90,6 +92,7 @@ List of operations can be performed:
 	> The date needs to be found is: 22/2/2023
 	> Exit
 	```
+
 2. Warning example:
 	```
 	> $ ...

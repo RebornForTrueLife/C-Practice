@@ -133,6 +133,7 @@
 	> `change sign` of [totalDay]
 	> `Return` [totalDay]
 	```
+	
 2. **toDate**
 	```
 	> `Take` an integer [dayStamp]
