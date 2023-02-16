@@ -12,7 +12,6 @@
 
 ### Input
 
-*Denote: 1e[d]  = 10 ^ [d]*
 1. Transfer data speed
 	- Default: 960 characters/second
 2. File size: in MB(megabyte): is a float number
