@@ -36,9 +36,11 @@
 5. `subtract`: to `subtract` a number of days to a date and `return` the result date
 
 ***Suport block***
-1. `Validate`: to validate a given* date, if the date is invalid, `raise` error and `exit` program
-2. `Compare`: to perform comparision between 2 dates(detail in date desciprtion)
-3. `dayStamp`: to `convert` the given date into a number of days from base_date(1/1/0) to the given date. *Note: day stamp of  base_date is 1, 0 day_stamp is 1/1/0*
+1. `checkLeapYear`: to check if the given year is a leap year, `return` true if it is a leap year and vice versa.
+2. `Validate`: to validate a given* date, if the date is invalid, `raise` error and `exit` program
+3. `Compare`: to perform comparision between 2 dates(detail in date desciprtion)
+4. `dayStamp`: to `convert` the given date into a number of days from base_date(1/1/0) to the given date. *Note: day stamp of  base_date is 1, 0 day_stamp is 1/1/0*
+5. `toDate`: to `convert` a given dayStamp(a int) to corresponding date format(an array dimension 3 of int)
 
 ### Operation Flow
 0. Main
@@ -53,7 +55,7 @@
 *#2 Code [comparison fucntion], [distance measure func]*
 
 1. **Validate**
-	> `Take` an short integer array dimension 3 [day, month, year]
+	> `Take` an integer array dimension 3 [day, month, year]
 	> `Check` if year is a leap year or normal year
 		> `If` year is a normal year: mean number days in Feb is 28 days
 		> `If` year is a leap year: number day in Feb is 29 days
@@ -61,7 +63,7 @@
 	> `Check` if day is in valid range - depend on month
 
 2. **Comparison**
-	> `Take` 2 dates, which are 2 short integer arrays with dimension 3: [A] and [B], containing 3 fields: [day, month, year]
+	> `Take` 2 dates, which are 2 integer arrays with dimension 3: [A] and [B], containing 3 fields: [day, month, year]
 	> `Validate` each date
 		> `If` there is any date that is not valid, `Raise` warning and `Exit`program
 	> `Compare` the years of 2 dates:
@@ -69,7 +71,7 @@
 	> `Compare` the months of 2 dates:
 		> `If` they are not equal, `Return` the comparison result
 	> `Compare` the day of 2 dates, `Return` the comparison result
-	- To represent result: using an short integer:
+	- To represent result: using an integer:
 		> 1: if [A] is greater
 		> 0: for equal
 		> -1: if [A] is smaller
@@ -98,14 +100,17 @@
 	> [totalDay] = [dayStampB] - [dayStampA] + 1
 	> `Return` totalDay
 
-6. **Addition operation**
-	> `Take` a date [A] and a non-negative number [d]
-	> ...
+6. **AddSubOperation**
+	> `Take` a date [A] and an integer number [d]
+	> `Convert` date [A] to [daystamp]of [A]
+	> `Add` [d] tp [daystamp], `Assign` result to [newDaystamp]
+	> `Convert` [newDaystamp] to [date]
+	> `Return` [date]
+
 
 ### Support functions
-*Note: for dates that are before base_date, which are described: the day before base_date is 31/12/-1, which has day_stamp: -1. Then the corresponding date with absolute year of a date [day/month/negative_year] is [day/month/abs_year]. So day_stamp of the given date is calculated by: calculate the day_stamp of corresponding year(assign value to [dayStamp]), minus ([number of days of abs_year] -1 + [number of days of year 0 == 366]) to [dayStamp], and change sign of [dayStamp]* 
-
 1. **DayStamp**
+	*Note: for dates that are before base_date, which are described: the day before base_date is 31/12/-1, which has day_stamp: -1. And the base_date is 1/1/0, which has day stamp 0* 
 	> `Take` a date [A]
 	> `Check` if [A] is valid
 	> `Check` if year of [A] is negative
@@ -120,8 +125,32 @@
 	> `change sign` of [totalDay]
 	> `Return` [totalDay]
 
+2. **toDate**
+	> `Take` an integer [dayStamp]
+	> `Declare` [sign]: hold sign of day stamp(1 or-1)
+	<!-- If` [dayStamp] is negative, mean the date is before base_date -->
+	> [dayStamp] \*= sign 
+	<!-- Find year -->
+	> [min_year] = [dayStamp] modulo 366 	// the minimum number of years that date with dayStamp might fall to
+	> `Increasing From` [year] = [min_year], `calculate` the day_stamp of the first_day of year `Until` [dayStamp] are SMALLER than day_stamp
+	> `Decrease ` [year] by 1 to find the year of the date of [dayStamp]
+	> `If` sign == -1
+		> `Increase` year by 1 and change sign, cuz negative year start by -1
+	> 
+	<!-- Find month -->
+	> `Check` if sign == 1
+		> If `true`: `Calculate` number of days left from the begin day of [year] to the date of [dayStamp]: [left_day] = [dayStamp] - dayStamp(1/1/[year]) + 1 <!-- because  day stamp start by 0 -->
+		> `Else`: [left_day] = - [dayStamp] + abs(1/1/ - [year]) + 1
+	> `Define``totalDay `of [month]: total number days from 1/1 to the last day of [month] in the same year <!-- note: check leap year -->
+	> `From` [month] = 1; `increasing`[month] by 1 `Until` totalDay([month]) GREATER or EQUAL than [left_day] <!-- equal because the special case in the last day of the year 31/12 -->
+	<!-- Find day -->
+	> [day] = [left_day] - totalDay([month - 1])
+	> if [day] == 0 then it the day is last day of [month -1]: [day] = lastDayof [month - 1]; 
+		> `Decrease` [month] by 1
+	<!-- return result -->	
+	> return [day] [month] [year]
+
 
 ## Continue: 
-- coded DayStamp
-- Next code: measure Distance
-	
+- coding toDate function
+	> start to code daySigmaMonth func	

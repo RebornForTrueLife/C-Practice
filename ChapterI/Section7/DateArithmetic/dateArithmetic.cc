@@ -17,55 +17,73 @@
 
 //  **DATE USED**
 // list number of day each month in a year
-const short int MONTH_ARRAY[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const int MONTH_ARRAY[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+// a global array to return date
+int dateReturn[3]; 
 
 
 // **MAIN FUNCTION DECLARE**
 
 // Function to give instruction for each user choice of operation
-void instructor(short int choice);
+void instructor(int choice);
 
 // Abstract Function to perform each operation
 // void operationProcedure() -> abstraction
 
 // Function to validate a date and raise warning if the date is not valid
-bool validate(short int * date);
+bool validate(int * date);
 
 // Function to compare between 2 date, the detail comparison is defined in specification file
-short int compare(short int* dateA, short int *dateB);
+int compare(int* dateA, int *dateB);
 
 // Function to measure the number of days between 2 given dates
-short int measureDistance(short int * dateA, short int * dateB);
+int measureDistance(int * dateA, int * dateB);
 
 // Procedure to implement measure distance operation
 void measureDistanceProcedure();
 
-// Function to convert the given day into number of days from base_date(0/0/0) to the given date
-short int dayStamp(short int * date);
+// Funtion to return the date after/before a given number of date from  a given date
+int * addSubDay(int* date, int numberDay);
+
+// Procedure for add and sub operation xD
+void addSubProcedure();
 
 
 // **SUPPORT FUNCTION DECLARE
 
 // Function that check if a year is a leap year
-bool checkLeapYear(short int year);
+bool checkLeapYear(int year);
 
 // Function to raise warning and exit program
 void raiseError(std::string message);
 
-// Function to numbering comparison result of 2 short integer
-short int numberCompare(short int number1, short int number2) ;
+// Function to numbering comparison result of 2 integer
+int numberCompare(int number1, int number2) ;
+
+// Function to convert the given day into number of days from base_date(0/0/0) to the given date
+int dayStamp(int * date);
+
+// Function to convert the given day stamp into corresponding date
+int * toDate(int daystamp);
+
+// Function to calculate the number of day from 1/1 to the end of given month in the same year
+// need to know the year in order to check if it is a leap year
+int daySigmaMonth(int month, int year);
+
+// Function to return string value of date
+std::string toString(int * date);
 
 
 // **MAIN FUNCTION CODE
 
 // Validate input date
-bool validate(short int * date) {
+bool validate(int * date) {
 	// user other var to hold data for easily understanding
-	short int day = date[0];
-	short int month = date[1];
-	short int year = date[2];
+	int day = date[0];
+	int month = date[1];
+	int year = date[2];
 	// copy the MONTH_ARRAY, cuz the value of array can be changed
-	short int monthArray[12];
+	int monthArray[12];
 	std::copy(std::begin(MONTH_ARRAY), std::end(MONTH_ARRAY), std::begin(monthArray));
 	// Check if year is a leap year
 	if (checkLeapYear(year) == true)
@@ -89,7 +107,7 @@ bool validate(short int * date) {
 
 
 // Function to compare between 2 date, the detail comparison is defined in specification file
-short int compare(short int* dateA, short int *dateB) {
+int compare(int* dateA, int *dateB) {
 	//  check if dateA and dateB are valid 
 	validate(dateA);
 	validate(dateB);
@@ -105,30 +123,27 @@ short int compare(short int* dateA, short int *dateB) {
 
 
 // Instructor
-void instructor(short int choice){
+void instructor(int choice){
 	// If choice == 1: measure distance operation
 	if (choice == 1) {
 		std::cout << "Program will count number of days between 2 dates, the begin date need to happen before the end date\n";
 		std::cout << "Date should be entered in this format [day month year], example for 25/06/2023: 25 6 2023\n";
 		// CALL measure Distance Procedure
 		measureDistanceProcedure();
-		////////////////////////////////////////////////////////
-		// Test day stamp
-		// short int date[3];
-		// std::cout << "Enter a date: ";
-		// std::cin >> date[0] >> date[1] >> date[2];
-		// std::cout << "Day stamp: " << dayStamp(date) << "\n";
-		////////////////////////////////////////////////////////
 	} // If choice == 2: Addition operation
 	else if (choice == 2) {
 		std::cout << "Program will print the date after [number] days after given date\n";
 		std::cout << "Date should be entered in this format [day month year], example for 25/06/2023: 25 6 2023\n";
+		std::cout << "The number is an non-negative integer\n";
 		// CALL addition operation procedure
+		addSubProcedure();
 	} // If choice == 3: Subtraction operation
 	else if (choice == 3) {
 		std::cout << "Program will print the date before [number] days of the given date\n";
 		std::cout << "Date should be entered in this format [day month year], example for 25/06/2023: 25 6 2023\n";
+		std::cout << "The number is a non-positive integer\n";
 		// CALL subtraction operation procedure
+		addSubProcedure();
 	} // Else raise Error
 	else
 		raiseError("Choice must be an integer in [id] listed above");
@@ -136,10 +151,10 @@ void instructor(short int choice){
 
 
 // Funtion to measure the number of days between 2 given dates
-short int measureDistance(short int * dateA, short int * dateB) {
-	short int totalDay = 0;         	// total day between dateA and dateB
-	short int dayStampA; 			//  day stamp of the first date
-	short int dayStampB; 			//  day stamp of the second date
+int measureDistance(int * dateA, int * dateB) {
+	int totalDay = 0;         	// total day between dateA and dateB
+	int dayStampA; 			//  day stamp of the first date
+	int dayStampB; 			//  day stamp of the second date
 	// check: dateA must happen before or same as dateB
 	if (compare(dateA, dateB) == 1)
 		raiseError("The first date must happen before or same as second date");
@@ -155,9 +170,9 @@ short int measureDistance(short int * dateA, short int * dateB) {
 
 // Procedure to implement measure distance operation
 void measureDistanceProcedure() {
-	short int dateA[3];          // begin date
-	short int dateB[3];          // end date
-	short int result;               // number of days between 2 dates
+	int dateA[3];          // begin date
+	int dateB[3];          // end date
+	int result;               // number of days between 2 dates
 	// Ask user to enter 2 dates 
 	std::cout << "Enter the begin date: ";
 	std::cin >> dateA[0] >> dateA[1] >> dateA[2];
@@ -170,12 +185,40 @@ void measureDistanceProcedure() {
 }   // end measureDistanceProcedure
 
 
+// Funtion to return the date after/before a given number of date from  a given date
+int * addSubDay(int* date, int numberDay) {
+	int daystamp = dayStamp(date);			// day stamp of given date
+	// calculate new day stamp
+	daystamp += numberDay;
+	// convert new day stamp to corresponding date
+	toDate(daystamp);
+	// return result, cuz result already stored in global var [dateReturn]
+	return dateReturn;
+}	// end addSubDay
+
+
+// Procedure for add and sub operation xD
+void addSubProcedure() {
+	int date[3];			// the date to operate on
+	int numberDay;		// the number of day to be added, if it < 0, same mean of sub
+	// ask user to enter the date and the integer
+	std::cout << "Enter the date: ";
+	std::cin >> date[0] >> date[1] >> date[2];
+	std::cout << "Enter the integer: ";
+	std::cin >> numberDay;
+	// Operating and stored result in dateReturn
+	addSubDay(date, numberDay);
+	// print result out
+	std::cout << "The date needs to be found is: " << toString(dateReturn) << "\n";
+}	// end addSubDay
+
+
 // **SUPPORT FUNCTION CODE**
 
 // function that check if a year is a leap year
 // a leap year is any year divisible by 4 
 // unless it is divisible by 100, but not 400
-bool checkLeapYear(short int year) {
+bool checkLeapYear(int year) {
 	bool result = false;        // result of the check, initial is false - not a leap year
 	// check if year is divisible by 4
 	if (year % 4 == 0) {
@@ -201,8 +244,8 @@ void raiseError(std::string message) {
 }   // end raiseError
 
 
-// Function to numbering comparison result of 2 short integer
-short int numberCompare(short int number1, short int number2) {
+// Function to numbering comparison result of 2 integer
+int numberCompare(int number1, int number2) {
 	if (number1 > number2)          // result == 1 if numb1 > numb2
 		return 1;
 	else if (number1 < number2)     // result == -1 if numb1 < numb2
@@ -213,16 +256,16 @@ short int numberCompare(short int number1, short int number2) {
 
 
 // Function to convert the given day into number of days from base_date(1/1/0) to the given date
-short int dayStamp(short int * date) {
+int dayStamp(int * date) {
 	// explicitly use date data
-	short int day = date[0];            	// date's day
-	short int month = date[1];       	// date's month
-	short int year = date[2];			// date's year
-	short int sign;							// to show if year is before or after base_date
-	short int totalDay = 0; 				// number of days = day stamp
-	short int dayCurrentYear = 0;	// number of days happened in date's year
+	int day = date[0];            	// date's day
+	int month = date[1];       	// date's month
+	int year = date[2];			// date's year
+	int sign;							// to show if year is before or after base_date
+	int totalDay = 0; 				// number of days = day stamp
+	int dayCurrentYear = 0;	// number of days happened in date's year
 	// copy the MONTH_ARRAY, cuz the value of array can be changed
-	short int monthArray[12];
+	int monthArray[12];
 	std::copy(std::begin(MONTH_ARRAY), std::end(MONTH_ARRAY), std::begin(monthArray));
 	// validate the given date
 	validate(date);
@@ -275,9 +318,104 @@ short int dayStamp(short int * date) {
 }   // end dayStamp
 
 
+// Function to convert the given day stamp into corresponding date
+int * toDate(int daystamp) {
+	int sign;		// sign of daystamp
+	int year;		// year of date
+	int month;	// month of date
+	int day;			// day of date
+	if (daystamp < 0) 
+		sign = -1;
+	else 
+		sign = 1;
+	// FIND YEAR
+	// calcualte abs of daystamp
+	daystamp *= sign;
+	// the minimum number of years that date with daystamp might fall to
+	year = daystamp / 366;
+	// increase year until dayStamp of the begin date of [year] greater than
+	while (1) {
+		int beginDateYear[] = {1, 1, year};		// the begin date of [year]
+		if (daystamp < dayStamp(beginDateYear))
+			break;
+		year += 1;
+	}	// close while
+	// so the year of date is the year before [year]
+	year -= 1;
+	// if year is negative
+	if (sign == -1) {
+		year += 1;			// cuz negative year start by -1;
+		year *= sign;		// change sign of year
+	}	// close if
+	// // if daystamp equal to dayStamp(beginDateYear), return the date if sign == 1
+	// int beginDateYear[] = {1, 1, year};
+	// if (daystamp == dayStamp(beginDateYear))
+	// 	if (sign == 1)	 {						// date is after or equal base_date
+	// 		std::copy(std::begin(beginDateYear), std::end(beginDateYear), std::begin(dateReturn));
+	// 		return dateReturn;		
+	// 	}	// close if
+	
+	// FIND MONTH
+	// calculate number of day between date and the begin of the same year
+	int leftDay;			// the number of days 
+	// the way finding [number of days] is different between 2 value of sign
+	int beginDate[] = {1, 1, year};
+	if (sign == 1) {
+		leftDay = daystamp - dayStamp(beginDate) + 1; 
+	} else {
+		// Because day stamp of the begin date of negative year is negative, 
+		//  and daystamp has been already  done absolute
+		// increment 1 so that [leftDay] also include the needed date
+		leftDay = (- dayStamp(beginDate)) - daystamp + 1; 
+	}	// close if
+	// Find the minimum month that greater or equal to date's month
+	month = 1;
+	while (1) {
+		if (daySigmaMonth(month, year) >= leftDay) 
+			break;
+		month++;
+	}	// close while
+	// FIND DAY
+	day = leftDay - daySigmaMonth(month - 1, year);
+	if (day == 0)	{		// day is the last day of previous month
+		day = daySigmaMonth(month, year) - daySigmaMonth(month - 1, year);
+		month--;
+	}	// close if
+	// return date
+	dateReturn[0] = day;
+	dateReturn[1] = month;
+	dateReturn[2] = year;
+	return dateReturn;
+}	// end toDate
+
+
+// Function to calculate the number of day from 1/1 to the end of given month in the same year
+// need to know the year in order to check if it is a leap year
+int daySigmaMonth(int month, int year) {
+	int monthArray[12];		// array of number days of month
+	int totalDay = 0;			// number of days 
+	std::copy(std::begin(MONTH_ARRAY), std::end(MONTH_ARRAY), std::begin(monthArray));
+	if (checkLeapYear(year) == true) 
+		monthArray[1] = 29;			// FEB has 29 days in leap year
+	for (int monthIdx = 0; monthIdx < month; monthIdx++) {
+		totalDay += monthArray[monthIdx];
+	}	// close for
+	return totalDay;
+}	// end daySigmaMonth
+
+
+// Function to return string value of date
+std::string toString(int * date) {
+	std::string result = std::to_string(date[0]) + "/" ;
+	result += std::to_string(date[1]) + "/";
+	result += std::to_string(date[2]);
+	return result;
+}	// end toString
+
+
 int main(int argc, char const *argv[]) {
 	// Declare
-	short int choice;       // operation choice
+	int choice;       // operation choice
 
 	// Print out the list of operations
 	std::cout << "This program can perform some operations on date that are listed below\n";
