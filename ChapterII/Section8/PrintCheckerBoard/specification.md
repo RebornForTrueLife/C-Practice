@@ -3,7 +3,7 @@
 
 ***Print a square checker board with a given size***
 
-*Preliminary Specification*
+*Specification*
 
 
 # Purpose:
