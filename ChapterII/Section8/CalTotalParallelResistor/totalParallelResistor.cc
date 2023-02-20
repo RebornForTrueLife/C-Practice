@@ -8,6 +8,7 @@
 
 
 #include <iostream>
+#include <iomanip>
 
 
 int main(int argc, char const *argv[]) {
@@ -29,6 +30,8 @@ int main(int argc, char const *argv[]) {
 	// Calcualte total resistor
 	total = 1 / total;
 	// print out the result
+	std::cout << std::fixed;					// set decimal part of a float =
+	std::cout << std::setprecision(3);	// 3 digits
 	std::cout << "Total resistor: " << total << "\n";
 	return 0;
 }	// end  main 
