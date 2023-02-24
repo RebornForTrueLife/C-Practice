@@ -4,18 +4,9 @@
 ## Data
 
 ### Input 
-- an integer: [number] <= 100
-- All cases input can be:
-	- from 0 to 9: zero, one, two, three, four, five, six, seven, eight, nine
-	- from 10 to 19: ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
-	- from 20 to 99: twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety. Special case with 0 after
-	- 100: one hundred
-
-### Used data
-- a constant string array of [zero .. nine] : ONE_WORD[10]
-- a constant string array of [10..19]: TEEN_WORD[10]
-- a constant string array of [20, 30...90]: TEN_WORD[8]
-- a string for 100: HUNDRED = "one hundred"
+- an integer: [number]
+- a constant string array of [zero .. nine] with element is the word of 
+corresponding index: NUMBER_WORD[10]
 - A global integer array to hold the return value of function: the size of array is the [number of digit in MAX_INT] + [1 number holding array size] = 10 + 1 =11: arrayReturn[11]
 - size of arrayReturn = MAX_SIZE
 
@@ -28,10 +19,6 @@
 	> `Print` the instruction of the program
 
 	> `Ask` user to enter [number]
-
-	> `Check` if [number] is a non-negative integer
-
-		> If not, raise error and `Exit` program
 
 	> `convert` number to word 
 
@@ -65,28 +52,8 @@
 
 	> `Assign`[size] of number = arrayReturn[0]
 
-	> `Initialize` [index] of the first digit of number in the [array]
+	> `For each` [value] from last [size] elements of arrayReturn, in left to right order:
 
-	> `With each` cases:
+		> `Add` the element of NUMBER_WORD array, with index is [value], to  string [word]
 
-		> `Case` 1: 
-
-			> `Get` value in ONE_WORD array with index is the digit located in [index] of the [array]
-
-			> `Assign` the value to [word]
-
-		> `Case` 2: 
-
-			> `Get` value in TEN_WORD array with index is the digit located in [index] of the [array], `Assign` value to [word]
-
-			> `Increment` [index] by 1
-
-			> `If` array[index] != 0 is TRUE
-
-				> `Get` value in ONE_WORD array with index is the digit located in [index] of the [array], `Assign` the value to [word]
-
-		> `Case` 3: 
-
-			> `Assign` [word] with HUNDRED 
-	
 	> `Return` [word]
