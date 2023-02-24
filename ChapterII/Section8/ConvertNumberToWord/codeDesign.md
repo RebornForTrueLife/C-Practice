@@ -77,13 +77,19 @@
 
 		> `Case` 2: 
 
-			> `Get` value in TEN_WORD array with index is the digit located in [index] of the [array], `Assign` value to [word]
+			> `Get` the [tensPlace] of the number = value of array at [index]
 
-			> `Increment` [index] by 1
+			> `Get` the [onesPlace] of the number = value of array at [index + 1]
 
-			> `If` array[index] != 0 is TRUE
+			> `Check` if [tensPlace] == 1:
 
-				> `Get` value in ONE_WORD array with index is the digit located in [index] of the [array], `Assign` the value to [word]
+				> Is TRUE, [word] = value of arrayTEEN_WORD at index is [onesPlace]
+
+				> IS FALSE: [word] = value of array TEN_WORD at index is ([tensPlace] - 2) *cuz array start from word of 20*
+
+					> `If` [onesPlace] != 0 is TRUE:
+
+						> `Add` value of array ONE_WORD at index: [onesPlace] to [word]
 
 		> `Case` 3: 
 
